@@ -1,32 +1,43 @@
-import {useState,useCallback, useEffect} from 'react';
+// Import React hooks
+import { useState, useEffect } from "react";
 
 function useFetch(url) {
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
 
-    const fetchData = useCallback(async () => {
-        try{
-            setLoading(true);
-            const response = await fetch(url);
-            if(!response.ok){
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const result = await response.json();
-            setData(result);
-            setError(null);
-        } catch (err) {
-            setError(err.message);
-        } finally{
-            setLoading(false);
+  // Store fetched data
+  const [data, setData] = useState([]);
+
+  // Track loading status
+  const [loading, setLoading] = useState(true);
+
+  // Store error messages
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+
+    // Function to fetch data from API
+    async function fetchData() {
+      try {
+        const response = await fetch(url);
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
         }
-    }, [url]);
 
-    useEffect(() => {
-        fetchData();
-    }, [fetchData]);
-    
-    return { data, loading, error};
+        const result = await response.json();
+
+        setData(result);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+
+  }, [url]); // Runs when URL changes
+
+  return { data, loading, error };
 }
 
 export default useFetch;
