@@ -1,6 +1,6 @@
 ## Project Overview
 
-I was working on a project. I created a tool for React called `useFetch`. This tool is really useful because it helps me get information from an API. I do not have to write the code over and over again in different parts of my project.
+I created a tool for React called `useFetch`. This tool is really useful because it helps us get information from an API. We do not have to write the code over and over again in different parts of my project.
 
 The `useFetch` tool uses `useState` to keep track of the information. It checks if the information is still loading and if there are any errors. The `useFetch` tool also uses `useEffect` to get the information when my project starts. I use this tool to get product information from an API. I show it in a card layout.
 
